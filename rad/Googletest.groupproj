@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C3BF3A61-9859-40C9-BA08-431F761675F3}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="gmock.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="gmock_main.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="gtest.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="gtest_main.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="gmock">
+        <MSBuild Projects="gmock.cbproj"/>
+    </Target>
+    <Target Name="gmock:Clean">
+        <MSBuild Projects="gmock.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gmock:Make">
+        <MSBuild Projects="gmock.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gmock_main">
+        <MSBuild Projects="gmock_main.cbproj"/>
+    </Target>
+    <Target Name="gmock_main:Clean">
+        <MSBuild Projects="gmock_main.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gmock_main:Make">
+        <MSBuild Projects="gmock_main.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gtest">
+        <MSBuild Projects="gtest.cbproj"/>
+    </Target>
+    <Target Name="gtest:Clean">
+        <MSBuild Projects="gtest.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gtest:Make">
+        <MSBuild Projects="gtest.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="gtest_main">
+        <MSBuild Projects="gtest_main.cbproj"/>
+    </Target>
+    <Target Name="gtest_main:Clean">
+        <MSBuild Projects="gtest_main.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gtest_main:Make">
+        <MSBuild Projects="gtest_main.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="gmock;gmock_main;gtest;gtest_main"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="gmock:Clean;gmock_main:Clean;gtest:Clean;gtest_main:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="gmock:Make;gmock_main:Make;gtest:Make;gtest_main:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

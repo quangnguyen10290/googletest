@@ -3715,7 +3715,7 @@ std::string FormatTimeInMillisAsSeconds(TimeInMillis ms) {
 static bool PortableLocaltime(time_t seconds, struct tm* out) {
 #if defined(_MSC_VER)
   return localtime_s(out, &seconds) == 0;
-#elif defined(__MINGW32__) || defined(__MINGW64__)
+#elif defined(__MINGW32__) || defined(__MINGW64__) || defined(__CODEGEARC__)
   // MINGW <time.h> provides neither localtime_r nor localtime_s, but uses
   // Windows' localtime(), which has a thread-local tm buffer.
   struct tm* tm_ptr = localtime(&seconds);  // NOLINT
@@ -4915,9 +4915,12 @@ int UnitTest::Run() {
     // for these assertions is to pop up a dialog and wait for user input.
     // Instead ask the CRT to dump such assertions to stderr non-interactively.
     if (!IsDebuggerPresent()) {
+    // RAD Studio has crtdbg.h file but without below functions
+    #ifndef __CODEGEARC__
       (void)_CrtSetReportMode(_CRT_ASSERT,
                               _CRTDBG_MODE_FILE | _CRTDBG_MODE_DEBUG);
       (void)_CrtSetReportFile(_CRT_ASSERT, _CRTDBG_FILE_STDERR);
+    #endif
     }
   }
 #endif  // GTEST_OS_WINDOWS
